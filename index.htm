@@ -2,6 +2,24 @@
 <html>
 <head> <link rel="stylesheet" href="styles.css"> </head>
 <div id="calendar"></div>
+<body>
+  <input type="text" id="eName" name="eName" placeholder="Event name" autocomplete="off" required>
+    <br><br>
+  <input type="text" id="cat" name="cat" placeholder="Category" autocomplete="off" required>
+    <br><br>
+  Color:<br>
+    <select id="color" name="color" required>
+      <option value="" selected="selected">Select</option>
+      <option value="orange">Orange</option>
+      <option value="green">Green</option>
+      <option value="blue">Blue</option>
+      <option value="yellow">Yellow</option>
+    </select>
+    <br><br>
+  <input type="date" id="dat" name="dat"
+    value="2019-01-01"
+    min="2019-01-01" max="2050-01-01">
+  <input id="clickMe" type="button" value="Add Event" onclick="addData(document.getElementById('eName').value, document.getElementById('cat').value, document.getElementById('color').value, document.getElementById('dat').value);"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
 <script>
 !function() {
@@ -327,33 +345,20 @@
 
 !function() {
   var data = [
-    { eventName: 'Lunch Meeting w/ Mark', calendar: 'Work', color: 'orange', date: '2014-02-08' },
-    { eventName: 'Interview - Jr. Web Developer', calendar: 'Work', color: 'orange', date: '2014-03-08' },
-    { eventName: 'Demo New App to the Board', calendar: 'Work', color: 'orange', date: '2014-02-13' },
-    { eventName: 'Dinner w/ Marketing', calendar: 'Work', color: 'orange', date: '2014-02-19' },
-
-    { eventName: 'Game vs Portalnd', calendar: 'Sports', color: 'blue', date: '2014-02-28' },
-    { eventName: 'Game vs Houston', calendar: 'Sports', color: 'blue', date: '2014-03-19' },
-    { eventName: 'Game vs Denver', calendar: 'Sports', color: 'blue', date: '2014-02-04' },
-    { eventName: 'Game vs San Degio', calendar: 'Sports', color: 'blue', date: '2014-02-01' },
-
-    { eventName: 'School Play', calendar: 'Kids', color: 'yellow', date: '2014-02-25' },
-    { eventName: 'Parent/Teacher Conference', calendar: 'Kids', color: 'yellow', date: '2014-02-19' },
-    { eventName: 'Pick up from Soccer Practice', calendar: 'Kids', color: 'yellow', date: '2019-02-11'},
-    { eventName: 'Ice Cream Night', calendar: 'Kids', color: 'yellow', date: '2014-02-20' },
-
-    { eventName: 'Free Tamale Night', calendar: 'Other', color: 'green', date: '2014-02-08' },
-    { eventName: 'Bowling Team', calendar: 'Other', color: 'green', date: '2014-02-10' },
-    { eventName: 'Teach Kids to Code', calendar: 'Other', color: 'green', date: '2014-03-04' },
-    { eventName: 'Startup Weekend', calendar: 'Other', color: 'green', date: '2014-03-17' }
+    { eventName: 'Lunch Meeting w/ Mark', calendar: 'Work', color: 'orange', date: '2019-02-08' },
   ];
 
-  
+  var retrievedData = localStorage.getItem("events");
+  var datas = JSON.parse(retrievedData);
 
-  
-
-  var calendar = new Calendar('#calendar', data);
-
+  var calendar = new Calendar('#calendar', datas);
 }();
+function addData(name, cal, col, dat) {
+  var retrievedData = localStorage.getItem("events");
+  var data = JSON.parse(retrievedData);
+  data.push({eventName: name, calendar: cal, color: col, date: dat});
+  localStorage.setItem("events", JSON.stringify(data));
+  location.reload();
+}
 </script>
 </html>
