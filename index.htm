@@ -260,12 +260,34 @@
     var wrapper = createElement('div', 'events in' + (currentWrapper ? ' new' : ''));
 
     events.forEach(function(ev) {
+      var name = ev.eventName;
+      var date = new Date(ev.date);
+      if(date.getDate()<10) {
+        if(date.getMonth()+1<10) {
+          date = ""+date.getFullYear()+"-0"+(date.getMonth()+1)+"-0"+date.getDate();
+        }
+        else {
+          date = ""+date.getFullYear()+"-"+(date.getMonth()+1)+"-0"+date.getDate();
+        }
+      }
+      else {
+        if(date.getMonth()+1<10) {
+          date = ""+date.getFullYear()+"-0"+(date.getMonth()+1)+"-"+date.getDate();
+        }
+        else {
+          date = ""+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+        }
+      }
       var div = createElement('div', 'event');
       var square = createElement('div', 'event-category ' + ev.color);
       var span = createElement('span', '', ev.eventName);
+      var remove = createElement('button');
+      remove.innerText = "X";
+      remove.setAttribute( "onClick", "javascript: del(\'"+name+"\', \'"+date+"\');" );
 
       div.appendChild(square);
       div.appendChild(span);
+      div.appendChild(remove);
       wrapper.appendChild(div);
     });
 
@@ -337,7 +359,7 @@
       ele.className = className;
     }
     if(innerText) {
-      ele.innderText = ele.textContent = innerText;
+      ele.innerText = ele.textContent = innerText;
     }
     return ele;
   }
@@ -359,6 +381,16 @@ function addData(name, cal, col, dat) {
   data.push({eventName: name, calendar: cal, color: col, date: dat});
   localStorage.setItem("events", JSON.stringify(data));
   location.reload();
+}
+function del(val, dat) {
+  var retrievedData = localStorage.getItem("events");
+  var data = JSON.parse(retrievedData);
+  var index = data.findIndex(function(item, i){
+    console.log(item.name);
+    return item.name === val && item.date === dat
+  });
+  console.log(index);
+  console.log(val);
 }
 </script>
 </html>
