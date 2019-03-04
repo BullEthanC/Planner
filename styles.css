@@ -28,6 +28,34 @@ body {
   overflow: hidden;
 }
 
+input {
+  position:absolute;
+  left:6%;
+  background-color:none;
+  background: none;
+  color: #00FF93;
+  border:none;
+  border-bottom: 1px solid #00FF93;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #00FF93;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #00FF93;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #00FF93;
+}
+
+select {
+  position:absolute;
+  left:6%;
+}
+
 .header {
   height: 50px;
   width: 420px;

@@ -3,12 +3,13 @@
 <head> <link rel="stylesheet" href="styles.css"> </head>
 <div id="calendar"></div>
 <body>
-  <input type="text" id="eName" name="eName" placeholder="Event name" autocomplete="off" required>
+  <h1 style="position:absolute; top:-15px; color:#00FF93; left:11%;">Add an event</h1>
+  <input style="top:50px;" type="text" id="eName" name="eName" placeholder="Event name" autocomplete="off" required>
     <br><br>
-  <input type="text" id="cat" name="cat" placeholder="Category" autocomplete="off" required>
+  <input style="top:85px;" type="text" id="cat" name="cat" placeholder="Category" autocomplete="off" required>
     <br><br>
-  Color:<br>
-    <select id="color" name="color" required>
+  <p style="position:absolute; top:95px; left: 6%; color: #00FF93;">Color:</p><br>
+    <select style="top:130px;" id="color" name="color" required>
       <option value="" selected="selected">Select</option>
       <option value="orange">Orange</option>
       <option value="green">Green</option>
@@ -16,9 +17,9 @@
       <option value="yellow">Yellow</option>
     </select>
     <br><br>
-  <input type="date" id="dat" name="dat"
+  <input style="top:155px;" type="date" id="dat" name="dat"
     min="2019-01-01" max="2050-01-01">
-  <input id="clickMe" type="button" value="Add Event" onclick="addData(document.getElementById('eName').value, document.getElementById('cat').value, document.getElementById('color').value, document.getElementById('dat').value);"/>
+  <input style="top:190px; background-color: #00FF93; color: #4A4A4A;" id="clickMe" type="button" value="Add Event" onclick="addData(document.getElementById('eName').value, document.getElementById('cat').value, document.getElementById('color').value, document.getElementById('dat').value);"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
 <script>
 !function() {
@@ -329,11 +330,13 @@
   }
 }();
 function addData(name, cal, col, dat) {
-  var retrievedData = localStorage.getItem("events");
-  var data = JSON.parse(retrievedData);
-  data.push({eventName: name, calendar: cal, color: col, date: dat});
-  localStorage.setItem("events", JSON.stringify(data));
-  location.reload();
+  if (name.length>0 && cal.length>0 && col && dat) {
+    var retrievedData = localStorage.getItem("events");
+    var data = JSON.parse(retrievedData);
+    data.push({eventName: name, calendar: cal, color: col, date: dat});
+    localStorage.setItem("events", JSON.stringify(data));
+    location.reload();
+  }
 }
 function del(val, dat) {
   var retrievedData = localStorage.getItem("events");
